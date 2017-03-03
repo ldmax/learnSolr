@@ -18,7 +18,7 @@ public class RichTextServiceImpl implements RichTextService {
 	 * @author lidanmax
 	 * @param fieldName 待检索字段名
 	 * @param fieldValue 待检索字段值
-	 * @return 分页对象PageHelper
+	 * @return 
 	 * 2017/03/02
 	 * */
 	@Override
@@ -31,7 +31,7 @@ public class RichTextServiceImpl implements RichTextService {
 	 * 给出路径，将该路径下所有的富文本文件上传至Solr并建立索引
 	 * @author lidanmax
 	 * @param path 放置待检索富文本文档的路径
-	 * @return void
+	 * @return 
 	 * */
 	@Override
 	public CommonResult<Integer> updateRichTextDocument(String path) {
