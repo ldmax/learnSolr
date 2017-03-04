@@ -20,5 +20,5 @@ public interface RichTextDAO {
 	 * @param fieldValue 待检索字段值
 	 * @return 
 	 * */
-	CommonResult<SolrDocumentList> queryRichTextDocument(String fieldName, String fieldValue);
+	CommonResult<SolrDocumentList> queryRichTextDocument(String searchInput);
 }

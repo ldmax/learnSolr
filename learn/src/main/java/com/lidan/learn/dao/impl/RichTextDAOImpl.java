@@ -5,16 +5,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.AbstractUpdateRequest;
 import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.common.params.ModifiableSolrParams;
+import org.apache.solr.common.params.SolrParams;
+import org.springframework.stereotype.Repository;
 
 import com.lidan.learn.common.CommonResult;
 import com.lidan.learn.dao.RichTextDAO;
+import com.lidan.learn.entity.RichTextDocumentEntity;
+import com.lidan.learn.util.EntityUtil;
 import com.lidan.learn.util.SolrUtil;
 
 /**
@@ -22,6 +26,7 @@ import com.lidan.learn.util.SolrUtil;
  * @author lidanmax
  * 2017/03/02
  * */
+@Repository
 public class RichTextDAOImpl implements RichTextDAO {
 	
 	private static HttpSolrClient solr = new HttpSolrClient(SolrUtil
@@ -81,17 +86,11 @@ public class RichTextDAOImpl implements RichTextDAO {
 	 * 2017/03/03 测试通过
 	 * */
 	@Override
-	public CommonResult<SolrDocumentList> queryRichTextDocument(String fieldName, String fieldValue) {
+	public CommonResult<SolrDocumentList> queryRichTextDocument(String searchInput) {
 		CommonResult<SolrDocumentList> result = new CommonResult<>();  // 用来装结果的CommonResult对象
-		SolrQuery request = null;
-		if(fieldName == null && fieldValue == null){  // 如果用户什么都不输入，则查询所有
-			request = new SolrQuery("*:*");  // *:*即为查询所有
-		}else{
-			request = new SolrQuery(fieldName + ":" + fieldValue);
-		}
-		
+		SolrParams solrParams = getSolrParams(searchInput);
 		try {
-			QueryResponse response = solr.query(request);
+			QueryResponse response = solr.query(solrParams);
 			SolrDocumentList responseResults = response.getResults();
 			// 设置返回结果
 			result.setSuccess(true);
@@ -129,10 +128,44 @@ public class RichTextDAOImpl implements RichTextDAO {
 		return pathList;
 	}
 	
+	/**
+	 * 输入搜索框内的字符串，返回包装好的ModifiableSolrParams对象
+	 * @author lidanmax
+	 * @param params 包装好的ModifiableSolrParams对象
+	 * @return
+	 * 2017/03/04测试通过
+	 * */
+	private static SolrParams getSolrParams(String searchInput){
+		ModifiableSolrParams params = new ModifiableSolrParams();  // 这是最后要返回的结果
+		// 开始处理搜索字符串
+		String [] processedInput = null;  // 用来装trim且split by space后结果的字符串数组
+		if(searchInput == null || "".equals(searchInput)){  // 当输入为空或空字符串时认为搜索所有
+			params.add("q", "*:*");
+		}else{  
+			processedInput = searchInput.trim().split(" ");  // 头尾去空后用空格来分割
+			// 首先得到RichTextDocumentEntity里面所有的field List
+			List<String> fieldNameList = EntityUtil.getFieldNameList(new RichTextDocumentEntity());
+			String queryString = null;
+			StringBuilder temp = new StringBuilder();
+			for(String keyWord : processedInput){
+				StringBuilder queryStringBuilder = new StringBuilder();
+				for(String fieldName : fieldNameList){
+					queryStringBuilder.append(fieldName).append(":").append(keyWord.trim()).append(" OR ");
+				}
+				queryString = queryStringBuilder.toString().substring(0, queryStringBuilder.toString().lastIndexOf(" ")-3);
+				temp.append(queryString).append(" AND ");
+			}
+			String wtf = temp.toString().substring(0, temp.toString().lastIndexOf(" ")-4);
+			params.add("q", wtf);
+		}
+		
+		return params;
+	}
+	
 	public static void main(String[] args) {
 		
-		CommonResult<Integer> result = new RichTextDAOImpl().updateRichTextDocument("C:\\Users\\lidanmax\\Desktop\\test2");
-		System.out.println(result.getMessage());
+		SolrParams wtf = getSolrParams("阿里 牛逼 哈哈");
+		System.out.println(wtf.toString());
 		
 	}
 }

@@ -1,8 +1,9 @@
 package com.lidan.learn.service;
 
-import org.apache.solr.common.SolrDocumentList;
+import java.util.List;
 
 import com.lidan.learn.common.CommonResult;
+import com.lidan.learn.entity.RichTextDocumentEntity;
 
 public interface RichTextService {
 	/**
@@ -19,5 +20,5 @@ public interface RichTextService {
 	 * @param fieldValue 待检索字段值
 	 * @return 
 	 * */
-	CommonResult<SolrDocumentList> queryRichTextByField(String fieldName, String fieldValue);
+	CommonResult<List<RichTextDocumentEntity>> queryRichText(String searchInput);
 }

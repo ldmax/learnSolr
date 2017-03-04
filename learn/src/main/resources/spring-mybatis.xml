@@ -58,7 +58,7 @@
         <property name="dataSource" ref="dataSource" />
         <!--<property name="typeAliasesPackage" value="com.yizhi.edu.model" />-->
         <!-- 自动扫描mapping.xml文件 -->
-        <property name="mapperLocations" value="classpath:com/lidan/learn/mapping/*.xml" />
+        <!--property name="mapperLocations" value="classpath:com/lidan/learn/mapping/*.xml" /-->
         <property name="configLocation" value="classpath:mybatis-config.xml" />
     </bean>
 
