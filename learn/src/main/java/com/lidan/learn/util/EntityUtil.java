@@ -59,7 +59,8 @@ public class EntityUtil {
 			if(document.get(columnNameList.get(i)) != null){
 				Class type = fieldTypeList.get(i);
 				if("String".equals(type.getSimpleName())){
-					method.invoke(entity, String.valueOf(((ArrayList<String>)document.get(columnNameList.get(i))).get(0))); 
+					method.invoke(entity, String.valueOf(((ArrayList<String>)document
+							.get(columnNameList.get(i))).get(0))); 
 				}else if("Integer".equals(type.getSimpleName())){
 					method.invoke(entity, Integer.valueOf((String)document.get(columnNameList.get(i))));
 				}
@@ -129,7 +130,8 @@ public class EntityUtil {
 		Class<? extends Entity> clazz = entity.getClass();
 		Field[] fields = clazz.getDeclaredFields();
 		for(Field field : fields){
-			String methodName = "set" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+			String methodName = "set" + field.getName().substring(0, 1)
+					.toUpperCase() + field.getName().substring(1);
 			resultList.add(methodName);
 		}
 		return resultList;

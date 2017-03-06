@@ -10,9 +10,11 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.request.AbstractUpdateRequest;
 import org.apache.solr.client.solrj.request.ContentStreamUpdateRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.apache.solr.common.params.SolrParams;
+import org.apache.solr.common.util.NamedList;
 import org.springframework.stereotype.Repository;
 
 import com.lidan.learn.common.CommonResult;
@@ -108,6 +110,52 @@ public class RichTextDAOImpl implements RichTextDAO {
 	}
 	
 	/**
+	 * 删除所有富文本索引
+	 * @author lidanmax
+	 * @param
+	 * @return
+	 * 2017/03/06
+	 * */
+	public CommonResult<Integer> deleteAllRichTextDocument(){
+		CommonResult<Integer> result = new CommonResult<>();
+		try {
+			UpdateResponse wtf = solr.deleteByQuery("*:*");
+			solr.commit();
+			NamedList<Object> wtf2 = wtf.getResponse();
+			result.setData(wtf2.size());
+			result.setSuccess(true);
+			result.setMessage("All indexes deleted.");
+		} catch (SolrServerException | IOException e) {
+			result.setData(0);
+			result.setMessage("Indexes delete failed. The stack trace: " + e.getMessage());
+			result.setSuccess(false);
+		}
+		return result;
+	}
+	
+	/**
+	 * 根据solrId删除索引
+	 * @author lidanmax
+	 * @param solrId 唯一标定富文本的指标
+	 * @return
+	 * */
+	public CommonResult<Integer> deleteRichTextDocumentBySolrId(String solrId){
+		CommonResult<Integer> result = new CommonResult<>();
+		try {
+			UpdateResponse wtf = solr.deleteById(solrId);
+			NamedList<Object> wtf2 = wtf.getResponse();
+			result.setData(wtf2.size());
+			result.setMessage("Delete index by solrId succeeded. SolrId is: " + solrId);
+			result.setSuccess(true);
+		} catch (SolrServerException | IOException e) {
+			result.setData(0);
+			result.setMessage("Delete index by solrId failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		}
+		return result;
+	}
+	
+	/**
 	 * 给出路径，返回该路径下的所有路径，至文件为止
 	 * @author lidanmax
 	 * @param pathList 用来装所有文件路径字符串的列表
@@ -164,8 +212,8 @@ public class RichTextDAOImpl implements RichTextDAO {
 	
 	public static void main(String[] args) {
 		
-		SolrParams wtf = getSolrParams("阿里 牛逼 哈哈");
-		System.out.println(wtf.toString());
+		CommonResult<Integer> wtf = new RichTextDAOImpl().deleteAllRichTextDocument();
+		System.out.println(wtf.getMessage());
 		
 	}
 }

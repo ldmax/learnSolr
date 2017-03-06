@@ -16,6 +16,6 @@
 		<div id="dataTable"></div>
 	</body>
 	<script type="text/javascript">
-		
+		console.log("${resultList}");
 	</script>
 </html>

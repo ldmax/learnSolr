@@ -2,6 +2,8 @@ package com.lidan.learn.entity;
 
 import java.util.Date;
 
+import org.apache.solr.client.solrj.beans.Field;
+
 /**
  * 富文本文件搜索返回结果的包装类
  * @author lidanmax
@@ -9,15 +11,26 @@ import java.util.Date;
  * 注：由于不存入数据库，因此该类仅用于包装，不设id字段
  * */
 public class RichTextDocumentEntity extends Entity {
+	@Field
 	private String solrId;  // 用来唯一标识该文档的参数，通常使用文档标题
+	@Field
 	private String title;  // 文档标题
+	@Field
 	private String author;  // 作者
+	@Field
 	private String documentFormat;  // 文档类型，如：application/pdf
+	@Field
 	private Date createDate;  // 创建时间
+	@Field
 	private String creator;  // 创建人
+	@Field
 	private Date lastModifyDate;  // 最近一次修改时间
+	@Field
 	private String modifier;  // 修改人
+	@Field
 	private Integer pageNumber;  // 页数
+	@Field
+	private String text;  // 正文 
 	
 	public String getSolrId() {
 		return solrId;
@@ -73,11 +86,17 @@ public class RichTextDocumentEntity extends Entity {
 	public void setPageNumber(Integer pageNumber) {
 		this.pageNumber = pageNumber;
 	}
-	
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
 	@Override
 	public String toString() {
-		return "RichTextDocument [solrId=" + solrId + ", title=" + title + ", author=" + author + ", documentFormat="
-				+ documentFormat + ", createDate=" + createDate + ", creator=" + creator + ", lastModifyDate="
-				+ lastModifyDate + ", modifier=" + modifier + ", pageNumber=" + pageNumber + "]";
+		return "RichTextDocumentEntity [solrId=" + solrId + ", title=" + title + ", author=" + author
+				+ ", documentFormat=" + documentFormat + ", createDate=" + createDate + ", creator=" + creator
+				+ ", lastModifyDate=" + lastModifyDate + ", modifier=" + modifier + ", pageNumber=" + pageNumber
+				+ ", text=" + text + "]";
 	}
 }
