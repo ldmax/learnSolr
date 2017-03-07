@@ -67,6 +67,7 @@
 					},
 					success:function(data){
 						console.log(data);
+						//window.location.href="${ctx}/richText/toRichTextPage?data=" + data;
 					}
 			    });
 			}

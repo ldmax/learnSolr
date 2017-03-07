@@ -19,6 +19,6 @@
         </c:forEach>
 	</body>
 	<script type="text/javascript">
-		console.log("${resultList}");
+		console.log("${data}");
 	</script>
 </html>
