@@ -45,7 +45,7 @@ public class KidInfoDAOImpl implements KidInfoDAO{
 			if(results != null){
 				for(SolrDocument document : results){  // 将document中的数据取出装到KidInfoEntity中
 					KidInfoEntity kid = new KidInfoEntity();
-					EntityUtil.setFieldsFromDocument(kid, document);
+					EntityUtil.setFieldsFromDocumentForDataBase(kid, document);
 					kidInfoList.add(kid);
 				}
 			}

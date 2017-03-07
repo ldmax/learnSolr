@@ -1,8 +1,7 @@
 package com.lidan.learn.entity;
 
-import java.util.Date;
+import java.util.List;
 
-import org.apache.solr.client.solrj.beans.Field;
 
 /**
  * 富文本文件搜索返回结果的包装类
@@ -11,25 +10,15 @@ import org.apache.solr.client.solrj.beans.Field;
  * 注：由于不存入数据库，因此该类仅用于包装，不设id字段
  * */
 public class RichTextDocumentEntity extends Entity {
-	@Field
 	private String solrId;  // 用来唯一标识该文档的参数，通常使用文档标题
-	@Field
 	private String title;  // 文档标题
-	@Field
-	private String author;  // 作者
-	@Field
+	private List<String> author;  // 作者
 	private String documentFormat;  // 文档类型，如：application/pdf
-	@Field
-	private Date createDate;  // 创建时间
-	@Field
-	private String creator;  // 创建人
-	@Field
-	private Date lastModifyDate;  // 最近一次修改时间
-	@Field
+	private String createDate;  // 创建时间
+	private List<String> creator;  // 创建人
+	private String lastModifyDate;  // 最近一次修改时间
 	private String modifier;  // 修改人
-	@Field
-	private Integer pageNumber;  // 页数
-	@Field
+	private String pageNumber;  // 页数
 	private String text;  // 正文 
 	
 	public String getSolrId() {
@@ -44,10 +33,10 @@ public class RichTextDocumentEntity extends Entity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getAuthor() {
+	public List<String> getAuthor() {
 		return author;
 	}
-	public void setAuthor(String author) {
+	public void setAuthor(List<String> author) {
 		this.author = author;
 	}
 	public String getDocumentFormat() {
@@ -56,22 +45,22 @@ public class RichTextDocumentEntity extends Entity {
 	public void setDocumentFormat(String documentFormat) {
 		this.documentFormat = documentFormat;
 	}
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-	public String getCreator() {
+	public List<String> getCreator() {
 		return creator;
 	}
-	public void setCreator(String creator) {
+	public void setCreator(List<String> creator) {
 		this.creator = creator;
 	}
-	public Date getLastModifyDate() {
+	public String getLastModifyDate() {
 		return lastModifyDate;
 	}
-	public void setLastModifyDate(Date lastModifyDate) {
+	public void setLastModifyDate(String lastModifyDate) {
 		this.lastModifyDate = lastModifyDate;
 	}
 	public String getModifier() {
@@ -80,10 +69,10 @@ public class RichTextDocumentEntity extends Entity {
 	public void setModifier(String modifier) {
 		this.modifier = modifier;
 	}
-	public Integer getPageNumber() {
+	public String getPageNumber() {
 		return pageNumber;
 	}
-	public void setPageNumber(Integer pageNumber) {
+	public void setPageNumber(String pageNumber) {
 		this.pageNumber = pageNumber;
 	}
 	public String getText() {

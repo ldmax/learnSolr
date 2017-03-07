@@ -38,25 +38,13 @@ public class RichTextServiceImpl implements RichTextService {
 		try{
 			for(SolrDocument doc : response.getData()){
 				RichTextDocumentEntity entity = new RichTextDocumentEntity();
-				EntityUtil.setFieldsFromDocument(entity, doc);
+				EntityUtil.setFieldsFromDocumentForRichText(entity, doc);
 				richTextDocumentList.add(entity);
 			}
 			result.setData(richTextDocumentList);
 			result.setMessage("This is RichTextService. Query succeeded.");
 			result.setSuccess(true);
-		}catch(InvocationTargetException ite){
-			result.setMessage("This is RichTextService. "
-					+ "Query failed. The stack trace is: " + ite.getMessage());
-			result.setSuccess(false);
-		} catch (NoSuchMethodException e) {
-			result.setMessage("This is RichTextService. "
-					+ "Query failed. The stack trace is: " + e.getMessage());
-			result.setSuccess(false);
-		} catch (SecurityException e) {
-			result.setMessage("This is RichTextService. "
-					+ "Query failed. The stack trace is: " + e.getMessage());
-			result.setSuccess(false);
-		} catch (IllegalAccessException e) {
+		}catch (SecurityException e) {
 			result.setMessage("This is RichTextService. "
 					+ "Query failed. The stack trace is: " + e.getMessage());
 			result.setSuccess(false);

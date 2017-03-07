@@ -66,7 +66,7 @@
 				    	searchInput : $("#searchInput").val()
 					},
 					success:function(data){
-						
+						console.log(data);
 					}
 			    });
 			}

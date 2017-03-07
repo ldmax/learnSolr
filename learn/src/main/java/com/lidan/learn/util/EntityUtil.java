@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.solr.common.SolrDocument;
 
+import com.lidan.learn.common.CommonResult;
 import com.lidan.learn.entity.Entity;
 
 /**
@@ -33,18 +34,14 @@ public class EntityUtil {
 	}
 	
 	/**
-	 * 为方便从document中获取各属性值set到Entity对象中写的方法
+	 * 为方便从document中获取各属性值set到数据库表Entity对象中写的方法
 	 * @author lidanmax
 	 * @param entity 用来接属性值的Entity对象
 	 * @param document SolrDocument对象
-	 * @return void
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
+	 * @return  
 	 * */
-	public static void setFieldsFromDocument(Entity entity, SolrDocument document) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+	public static CommonResult setFieldsFromDocumentForDataBase(Entity entity, SolrDocument document){
+		CommonResult result = new CommonResult();
 		Class<? extends Entity> clazz = entity.getClass();
 		Field[] fields = clazz.getDeclaredFields();
 		// 1. 从这个Entity对象的各Field名获得数据库中的列名
@@ -53,19 +50,91 @@ public class EntityUtil {
 		List<Class> fieldTypeList = getFieldTypeList(entity);
 		// 3. 获得该Entity对象的各set方法名
 		List<String> setterNameList = getSetterNameList(entity);
-		for(int i=0; i<fields.length; i++){
-			// 4. 然后kid.setId((Integer)document.get("id"));
-			Method method = clazz.getDeclaredMethod(setterNameList.get(i), fieldTypeList.get(i));
-			if(document.get(columnNameList.get(i)) != null){
-				Class type = fieldTypeList.get(i);
-				if("String".equals(type.getSimpleName())){
-					method.invoke(entity, String.valueOf(((ArrayList<String>)document
-							.get(columnNameList.get(i))).get(0))); 
-				}else if("Integer".equals(type.getSimpleName())){
-					method.invoke(entity, Integer.valueOf((String)document.get(columnNameList.get(i))));
+		try{
+			for(int i=0; i<fields.length; i++){
+				// 4. 然后kid.setId((Integer)document.get("id"));
+				Method method = clazz.getDeclaredMethod(setterNameList.get(i), fieldTypeList.get(i));
+				if(document.get(columnNameList.get(i)) != null){
+					Class type = fieldTypeList.get(i);
+					if("String".equals(type.getSimpleName())){
+						method.invoke(entity, String.valueOf(((ArrayList<String>)document
+								.get(columnNameList.get(i))).get(0))); 
+					}else if("Integer".equals(type.getSimpleName())){
+						method.invoke(entity, Integer.valueOf((String)document.get(columnNameList.get(i))));
+					}
 				}
 			}
+			result.setMessage("Set fields from documents succeeded.");
+			result.setSuccess(true);
+		}catch(IllegalAccessException e){
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		} catch (IllegalArgumentException e) {
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		} catch (InvocationTargetException e) {
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		} catch (NoSuchMethodException e) {
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		} catch (SecurityException e) {
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
 		}
+		return result;
+	}
+	
+	/**
+	 * 为方便从document中获取各属性值set到富文本文件Entity对象中写的方法
+	 * @author lidanmax
+	 * @param entity 用来接属性值的Entity对象
+	 * @param document SolrDocument对象
+	 * @return  
+	 * */
+	public static CommonResult setFieldsFromDocumentForRichText(Entity entity, SolrDocument document){
+		CommonResult result = new CommonResult();
+		Class<? extends Entity> clazz = entity.getClass();
+		Field[] fields = clazz.getDeclaredFields();
+		// 1. 从这个Entity对象的各Field名获得数据库中的列名
+		List<String> columnNameList = getFieldNameList(entity);
+		// 2. 获得该Entity对象的各Field的类型名简写
+		List<Class> fieldTypeList = getFieldTypeList(entity);
+		// 3. 获得该Entity对象的各set方法名
+		List<String> setterNameList = getSetterNameList(entity);
+		try{
+			for(int i=0; i<fields.length; i++){
+				// 4. 然后kid.setId((Integer)document.get("id"));
+				Method method = clazz.getDeclaredMethod(setterNameList.get(i), fieldTypeList.get(i));
+				if(document.get(columnNameList.get(i)) != null){
+					Class type = fieldTypeList.get(i);
+					if("String".equals(type.getSimpleName())){
+						method.invoke(entity, String.valueOf(document
+								.get(columnNameList.get(i)))); 
+					}else if("List".equals(type.getSimpleName())){
+						method.invoke(entity, (List<String>)document.get(columnNameList.get(i)));
+					}
+				}
+			}
+			result.setMessage("Set fields from documents succeeded.");
+			result.setSuccess(true);
+		}catch(IllegalAccessException e){
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		} catch (IllegalArgumentException e) {
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		} catch (InvocationTargetException e) {
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		} catch (NoSuchMethodException e) {
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		} catch (SecurityException e) {
+			result.setMessage("Set fields from documents failed. The stack trace is: " + e.getMessage());
+			result.setSuccess(false);
+		}
+		return result;
 	}
 	
 	/**

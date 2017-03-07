@@ -55,10 +55,20 @@ public class RichTextDAOImpl implements RichTextDAO {
 			for(String filePath : pathList){
 				String solrId = filePath.substring(filePath.lastIndexOf("\\") + 1);  // 获取文件名作为该文件的唯一标识
 				up.addFile(new File(filePath), serverUrl);
-				up.setParam("literal.id", solrId);
-				//up.setParam("uprefix", "attr_");  // 将文本抽取产生的未在schema中定义的域加上前缀attr_
-				up.setParam("fmap.content", "text");  // 将文本抽取产生的content域命名为schema中已定义的text
-				up.setParam("fmap.id", "title");
+				up.setParam("uprefix", "attr_");  // 将文本抽取产生的未在schema中定义的域加上前缀attr_
+				/*up.setParam("fmap.content", "text");  // 将文本抽取产生的content域命名为schema中已定义的text
+				up.setParam("fmap.dcterms_created", "createDate");*/
+				// 将提取到的文本命名为需要的字段名
+				up.setParam(solrId, "solrId");
+				up.setParam(solrId, "title");
+				up.setParam("fmap.meta_author", "author");
+				up.setParam("fmap.content_type", "documentFormat");
+				up.setParam("fmap.meta_creation_date", "createDate");
+				up.setParam("fmap.dc_creator", "creator");
+				up.setParam("fmap.last_modified", "lastModifyDate");
+				// up.setParam("fmap.last_modified", "modifier");  // 暂时没有找到表示修改者的字段
+				up.setParam("fmap.xmptpg_npages", "pageNumber");
+				up.setParam("fmap.content", "text");
 				up.setAction(AbstractUpdateRequest.ACTION.COMMIT, true, true);
 				solr.request(up);  // 提交到服务器
 			}
@@ -212,8 +222,10 @@ public class RichTextDAOImpl implements RichTextDAO {
 	
 	public static void main(String[] args) {
 		
-		CommonResult<Integer> wtf = new RichTextDAOImpl().deleteAllRichTextDocument();
+		CommonResult<Integer> wtf = new RichTextDAOImpl().updateRichTextDocument("C:\\Users\\lidanmax\\Desktop\\rich_text_test");
+		//CommonResult<Integer> wtf = new RichTextDAOImpl().deleteAllRichTextDocument();
 		System.out.println(wtf.getMessage());
+		System.out.println(wtf.getData());
 		
 	}
 }

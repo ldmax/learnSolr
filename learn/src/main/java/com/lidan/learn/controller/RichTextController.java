@@ -5,10 +5,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.lidan.learn.common.CommonResult;
 import com.lidan.learn.entity.RichTextDocumentEntity;
 import com.lidan.learn.service.RichTextService;
@@ -42,11 +43,12 @@ public class RichTextController {
 	 * 默认是各词的搜索结果取交集。
 	 * */
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String queryRichTextDocument(String searchInput, Model model){
+	@ResponseBody
+	public String queryRichTextDocument(String searchInput){
 		CommonResult<List<RichTextDocumentEntity>> response = richTextService
 				.queryRichText(searchInput);
-		model.addAttribute("resultList", response.getData());
-		return "/richTextPage";
+		String result = new Gson().toJson(response);
+		return result;
 	}
 	
 }

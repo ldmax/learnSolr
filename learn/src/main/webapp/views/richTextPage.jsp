@@ -14,6 +14,9 @@
 	
 	<body>
 		<div id="dataTable"></div>
+		<c:forEach items="${resultList}" var="result">
+            <span>${result}</span>>
+        </c:forEach>
 	</body>
 	<script type="text/javascript">
 		console.log("${resultList}");
