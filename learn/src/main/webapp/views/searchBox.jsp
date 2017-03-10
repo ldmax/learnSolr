@@ -60,7 +60,7 @@
 			if(event.keyCode == "13"){
 				$.ajax({  
 					type: "GET",
-					url: "${ctx}/richText/search",
+					url: "${ctx}/crawler/search",
 					data: {
 				    	//封装数据
 				    	searchInput : $("#searchInput").val()

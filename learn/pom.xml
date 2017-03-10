@@ -158,11 +158,11 @@
 			<artifactId>solr-solrj</artifactId>
 			<version>5.5.0</version>
 		</dependency>
-		<!--  spring data-->
+		<!--  crawler4j-->
 		<dependency>
-		    <groupId>org.springframework.data</groupId>
-		    <artifactId>spring-data-commons</artifactId>
-		    <version>1.13.0.RELEASE</version>
+		    <groupId>edu.uci.ics</groupId>
+		    <artifactId>crawler4j</artifactId>
+		    <version>4.1</version>
 		</dependency>
 		<!--  中文分词mmseg-->
 		<dependency>

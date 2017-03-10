@@ -56,8 +56,6 @@ public class RichTextDAOImpl implements RichTextDAO {
 				String solrId = filePath.substring(filePath.lastIndexOf("\\") + 1);  // 获取文件名作为该文件的唯一标识
 				up.addFile(new File(filePath), serverUrl);
 				up.setParam("uprefix", "attr_");  // 将文本抽取产生的未在schema中定义的域加上前缀attr_
-				/*up.setParam("fmap.content", "text");  // 将文本抽取产生的content域命名为schema中已定义的text
-				up.setParam("fmap.dcterms_created", "createDate");*/
 				// 将提取到的文本命名为需要的字段名
 				up.setParam(solrId, "solrId");
 				up.setParam(solrId, "title");

@@ -27,12 +27,7 @@ public class KidInfoServiceImpl implements KidInfoService{
 	 * service层的search方法
 	 * @author lidanmax
 	 * @param queryString 查询字符串
-	 * @return ResultModel对象，其中有查询到的数据的的包装好的对象及其它信息
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
+	 * @return ResultModel对象，其中有查询到的数据的的包装好的对象及其它信息 
 	 * */
 	@Override
 	public ResultModel search(String queryString) throws NoSuchMethodException, SecurityException, InvocationTargetException, IllegalAccessException, IllegalArgumentException {
