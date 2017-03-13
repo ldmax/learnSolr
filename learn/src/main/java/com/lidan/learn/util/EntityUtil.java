@@ -61,6 +61,8 @@ public class EntityUtil {
 								.get(columnNameList.get(i))).get(0))); 
 					}else if("Integer".equals(type.getSimpleName())){
 						method.invoke(entity, Integer.valueOf((String)document.get(columnNameList.get(i))));
+					}else if("List".equals(type.getSimpleName())){
+						method.invoke(entity, (List<String>)document.get(columnNameList.get(i)));
 					}
 				}
 			}

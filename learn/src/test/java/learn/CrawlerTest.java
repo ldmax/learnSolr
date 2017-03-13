@@ -15,7 +15,7 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 public class CrawlerTest {
 	@Test
 	public void test(){
-		String crawlStorageFolder = "E:\\crawl";  
+		String crawlStorageFolder = "E:\\crawl";  // 设置数据存放路径
 	    int numberOfCrawlers = 5;  
 	    CrawlConfig config = new CrawlConfig();  
 	    // 文明请求web：确保我们不发送超过1每秒请求数（1000毫秒之间的请求）。  
@@ -23,7 +23,7 @@ public class CrawlerTest {
 	    // 深度，即从入口URL开始算，URL是第几层。如入口A是1，从A中找到了B，B中又有C，则B是2，C是3   
 	    config.setMaxDepthOfCrawling(5);  
 	      
-	    //设置最大的抓取页面数。默认值为1，页面的数量不限  
+	    // 设置最大的抓取页面数。默认值为1，页面的数量不限  
 	    config.setMaxPagesToFetch(50);  
  
 	    config.setResumableCrawling(false);  

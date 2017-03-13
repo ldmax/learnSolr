@@ -90,8 +90,7 @@ public class RichTextDAOImpl implements RichTextDAO {
 	/**
 	 * 根据用户传来的待查询字段名和字段值全文检索富文本文档
 	 * @author lidanmax
-	 * @param fieldName 待检索字段名
-	 * @param fieldValue 待检索字段值
+	 * @param searchInput 搜索框输入的文本
 	 * @return 
 	 * 2017/03/03 测试通过
 	 * */

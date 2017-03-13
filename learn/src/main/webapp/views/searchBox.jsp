@@ -38,6 +38,9 @@
 				<!--input type="image" src="${ctxStatic}/pics/searchButton.png" title="搜索" id="button"/-->
 			</div>	
 	    </div>
+	    
+	    <!--  用于展示查到的数据的table-->
+	    <div id="dataTable"></div>
 	</body>
 	<script type="text/javascript">
 		// 点击搜索图标进行搜索
@@ -59,18 +62,29 @@
 		$("#searchInput").bind("keypress", function(event){
 			if(event.keyCode == "13"){
 				$.ajax({  
-					type: "GET",
+					type: "POST",
 					url: "${ctx}/crawler/search",
 					data: {
 				    	//封装数据
 				    	searchInput : $("#searchInput").val()
 					},
 					success:function(data){
-						console.log(data);
-						//window.location.href="${ctx}/richText/toRichTextPage?data=" + data;
+						console.log(data.data);
+						if(data.success == true){  // 如果成功查询到数据
+							$("#searchInput").hide();  // 隐藏搜索框
+							// 展示数据
+							for(var i=0; i<data.data.length; i++){
+								var url_temp = data.data[i]["url"];
+								var url = url_temp.substring(1, url_temp.length-1);
+								// 去掉前后的中括号，成为一个真正的url
+								console.log("呵呵：" + url_temp.substring(1, url_temp.length-1));
+								$("#dataTable").append('<a href=' + url + '>' + data.data[i]["title"] + '</a><br>')
+							}
+						}
 					}
 			    });
 			}
-		})
+		});
+		
 	</script>
 </html>

@@ -16,9 +16,6 @@ public class WomiCrawler extends WebCrawler{
     //页面前缀  
     private final static String URL_PREFIX = "http://www.xnjz.com/";    
   
-  
-  
-  
     /** 
      * shouldVisit是判断当前的URL是否已经应该被爬取（访问） 
      */  
@@ -30,6 +27,8 @@ public class WomiCrawler extends WebCrawler{
   
     /** 
      * visit则是爬取该URL所指向的页面的数据，其传入的参数即是对该web页面全部数据的封装对象Page。 
+     * @param page 页面
+     * @return
      */  
     @Override  
     public  void  visit(Page page) {  

@@ -6,12 +6,12 @@ package com.lidan.learn.entity;
  * 2017/03/10
  * */
 public class WebPageEntity extends Entity{
-	private String id;
-	private String url;
-	private String host;
-	private String title;
-	private String author;
-	private String content;
+	private String id;  // 唯一标定一个页面的指标
+	private String url;  // 页面url
+	private String host;  // 页面host
+	private String title;  // 页面标题
+	private String author;  // 页面作者
+	private String content;  // 页面内容（文本）
 	
 	public String getId() {
 		return id;
