@@ -14,7 +14,7 @@ public class WomiCrawler extends WebCrawler{
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g" + "|png|tiff?|mid|mp2|mp3|mp4"  
             + "|wav|avi|mov|mpeg|ram|m4v|pdf" + "|rm|smil|wmv|swf|wma|zip|rar|gz))$");  
     //页面前缀  
-    private final static String URL_PREFIX = "http://www.xnjz.com/";    
+    private final static String URL_PREFIX = "http://localhost:80/boco-health-ehrBrowser/";  // 这里是待爬网站    
   
     /** 
      * shouldVisit是判断当前的URL是否已经应该被爬取（访问） 
@@ -33,11 +33,14 @@ public class WomiCrawler extends WebCrawler{
     @Override  
     public  void  visit(Page page) {  
         try {  
+
+        	
             SolrInputDocument doc=new SolrInputDocument();  
             int docid = page.getWebURL().getDocid();  
             String url = page.getWebURL().getURL();  
             String parentUrl = page.getWebURL().getParentUrl();  
-            String anchor = page.getWebURL().getAnchor();  
+            String anchor = page.getWebURL().getAnchor();
+            
             doc.addField("id", docid+"");  
             doc.addField("url", url+"");  
             doc.addField("host", url+"");  
@@ -49,7 +52,8 @@ public class WomiCrawler extends WebCrawler{
             System.out.println("anchor: " + anchor);  
             if (page.getParseData() instanceof HtmlParseData) {  
                 HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();  
-                String text = htmlParseData.getText();  
+                String text = htmlParseData.getText();
+                System.out.println("text: " + text);
                 doc.addField("content", text); 
             }             
             Lock lock = Lock.getInstance();               

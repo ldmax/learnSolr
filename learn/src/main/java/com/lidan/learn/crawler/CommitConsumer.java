@@ -21,7 +21,7 @@ public class CommitConsumer implements Runnable{
             SolrInputDocument doc=null;  
             while((doc=Lock.getInstance().lstDocument.take())!=null){  
                 list.add(doc);  
-                if(list.size()==5){  
+                if(list.size()==1){  
                     commit++;     
                     solr.add(list);  
                     solr.commit();  

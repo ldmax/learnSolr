@@ -29,7 +29,7 @@
 			height:40px;
 		}
 	</style>
-	<body background="${ctxStatic}/pics/background.jpg">
+	<body>
 		<div id="center">
 			<div class="search" id="searchBox">
 				<input type="text" id="searchInput" placeholder="请输入你要搜索的关键词"/>
@@ -39,7 +39,7 @@
 			</div>	
 	    </div>
 	    
-	    <!--  用于展示查到的数据的table-->
+	    <!--  用于展示查到的数据-->
 	    <div id="dataTable"></div>
 	</body>
 	<script type="text/javascript">
@@ -77,8 +77,13 @@
 								var url_temp = data.data[i]["url"];
 								var url = url_temp.substring(1, url_temp.length-1);
 								// 去掉前后的中括号，成为一个真正的url
-								console.log("呵呵：" + url_temp.substring(1, url_temp.length-1));
-								$("#dataTable").append('<a href=' + url + '>' + data.data[i]["title"] + '</a><br>')
+								$("#dataTable").append('<a href=' + url + '>' + data.data[i]["title"] + '</a><br>');
+								// 网页内容中截取带关键词的一段展示在标题下方
+								var content = data.data[i]["content"];  // 网页文本内容
+								if(content.indexOf($("#searchInput").val())){
+									alert(content.indexOf($("#searchInput").val()));
+								}
+								$("#dataTable").append('<div>' + data.data[i]["content"] + '</div>');
 							}
 						}
 					}
