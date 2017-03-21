@@ -55,8 +55,7 @@ public class CrawlerTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}  
-	    controller.addSeed("http://localhost:80/boco-health-ehrBrowser/hypertension/getHypertensionInfo?healthFileCode=659004002001000003");
-	    controller.addSeed("http://localhost:80/boco-health-ehrBrowser/hospitalization/homeCase?jzlsh=1");
+		controller.addSeed("http://www.xnjz.com/");
 	    CommitConsumer consumer=new CommitConsumer();  
 	    new Thread(consumer).start();     
 	    controller.start(WomiCrawler.class, numberOfCrawlers);

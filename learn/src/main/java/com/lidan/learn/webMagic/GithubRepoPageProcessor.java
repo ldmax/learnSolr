@@ -36,7 +36,7 @@ public class GithubRepoPageProcessor implements PageProcessor{
     	Spider.create(new GithubRepoPageProcessor())
         //从"https://github.com/code4craft"开始抓
         .addUrl("https://github.com/code4craft")
-        .addPipeline(new JsonFilePipeline("D:\\webmagic\\"))
+        .addPipeline(new JsonFilePipeline("D:\\webmagic_data\\"))
         //开启5个线程抓取
         .thread(5)
         //启动爬虫

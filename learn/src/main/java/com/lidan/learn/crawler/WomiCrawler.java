@@ -14,7 +14,7 @@ public class WomiCrawler extends WebCrawler{
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|bmp|gif|jpe?g" + "|png|tiff?|mid|mp2|mp3|mp4"  
             + "|wav|avi|mov|mpeg|ram|m4v|pdf" + "|rm|smil|wmv|swf|wma|zip|rar|gz))$");  
     //页面前缀  
-    private final static String URL_PREFIX = "http://localhost:80/boco-health-ehrBrowser/";  // 这里是待爬网站    
+    private final static String URL_PREFIX = "http://www.xnjz.com/";  // 这里是待爬网站    
   
     /** 
      * shouldVisit是判断当前的URL是否已经应该被爬取（访问） 

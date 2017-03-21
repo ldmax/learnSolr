@@ -32,7 +32,7 @@ import com.lidan.learn.util.SolrUtil;
 public class RichTextDAOImpl implements RichTextDAO {
 	
 	private static HttpSolrClient solr = new HttpSolrClient(SolrUtil
-			.getPropertyValueByKey("serverUrl"));  // 该类公用的Solr客户端对象
+			.getPropertyValueByKey("crawlerUrl"));  // 该类公用的Solr客户端对象
 	
 	/**
 	 * 给出文件路径，本方法将该路径下所有富文本文件上传至Solr服务器并建立索引
@@ -219,8 +219,8 @@ public class RichTextDAOImpl implements RichTextDAO {
 	
 	public static void main(String[] args) {
 		
-		CommonResult<Integer> wtf = new RichTextDAOImpl().updateRichTextDocument("C:\\Users\\lidanmax\\Desktop\\rich_text_test");
-		//CommonResult<Integer> wtf = new RichTextDAOImpl().deleteAllRichTextDocument();
+		CommonResult<Integer> wtf = new RichTextDAOImpl().updateRichTextDocument("D:\\webmagic_data");
+		//new RichTextDAOImpl().deleteAllRichTextDocument();
 		System.out.println(wtf.getMessage());
 		System.out.println(wtf.getData());
 		

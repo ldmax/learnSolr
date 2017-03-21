@@ -12,7 +12,7 @@ import com.lidan.learn.util.SolrUtil;
 
 public class CommitConsumer implements Runnable{
 	private HttpSolrClient solr = new HttpSolrClient(SolrUtil
-			.getPropertyValueByKey("crawlerUrl"));;  
+			.getPropertyValueByKey("crawlerUrl")); 
     private List<SolrInputDocument> list=new LinkedList<SolrInputDocument>();  
       
     private int commit=0;  

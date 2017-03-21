@@ -134,11 +134,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.8.7</version>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
-        </dependency>
+        </dependency-->
         <!--  分页插件PageHelper-->
         <dependency>
 	        <groupId>com.github.pagehelper</groupId>
@@ -180,18 +180,18 @@
 		<dependency>
 		    <groupId>us.codecraft</groupId>
 		    <artifactId>webmagic-core</artifactId>
-		    <version>0.6.1</version>
+		    <version>0.5.3</version>
 		</dependency>
 		<dependency>
 		    <groupId>us.codecraft</groupId>
 		    <artifactId>webmagic-extension</artifactId>
-		    <version>0.6.1</version>
-		    <exclusions>
+		    <version>0.5.3</version>
+		    <!--exclusions>
 		        <exclusion>
 		            <groupId>org.slf4j</groupId>
 		            <artifactId>slf4j-log4j12</artifactId>
 		        </exclusion>
-	    	</exclusions>
+	    	</exclusions-->
 		</dependency>
     </dependencies>
     
