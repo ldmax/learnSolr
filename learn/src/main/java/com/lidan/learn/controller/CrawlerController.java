@@ -47,8 +47,6 @@ public class CrawlerController {
 	@ResponseBody
 	public CommonResult<List<WebPageEntity>> search(String searchInput, Model model){
 		CommonResult<List<WebPageEntity>> response = crawlerService.queryWebPage(searchInput);
-		/*List<WebPageEntity> resultList = response.getData();
-		model.addAttribute("resultList", resultList);*/
 		return response;
 	}
 }

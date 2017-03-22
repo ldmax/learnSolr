@@ -18,7 +18,7 @@ public class RetrivalProcessor implements PageProcessor{
 	private HttpSolrClient solr = new HttpSolrClient(SolrUtil
 			.getPropertyValueByKey("crawlerUrl"));
 	
-	private Site site = new Site().setRetryTimes(3).setSleepTime(100)  
+	private Site site = new Site().setRetryTimes(3).setSleepTime(100) 
             //添加cookie之前一定要先设置主机地址，否则cookie信息不生效  
             .setDomain("http://localhost:8080/boco-health-ehrBrowser/");
             
